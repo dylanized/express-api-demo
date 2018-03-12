@@ -1,13 +1,13 @@
 const express = require('express');
 
-// launch express app
+// instantiate express app
 const app = express();
 
 // if port env var, use it, else use default
 const port = (process.env.PORT) || 3000;
 
 // mount ReportSave route
-app.post(['/report'], (req, res) => {
+app.post('/report', (req, res) => {
 	// if no report or report is not valid, send error
 	if (!req.params.report && !validateReport(req.params.report)) res.sendStatus(500);
 	// else if report saves successfully, send success msg
@@ -17,7 +17,7 @@ app.post(['/report'], (req, res) => {
 });
 
 // mount ReportGet route - /report?id=123
-app.get(['/report'], (req, res) => {
+app.get('/report', (req, res) => {
 	// if no report id or report id is not valid, send error
 	if (!req.query.id) res.sendStatus(500);
 	// else handle request
@@ -32,7 +32,7 @@ app.get(['/report'], (req, res) => {
 });
 
 // mount catchall error route
-app.get(['*'], (req, res) => {
+app.get('*', (req, res) => {
 	res.sendStatus(401);
 });
 
